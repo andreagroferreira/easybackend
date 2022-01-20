@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  main-api:
+    build: .
+    ports:
+      - 80
+    depends_on:
+      - database
+      # - business-api
+
+  # business-api:
+  #   build: ./api
+  #   ports: 8081
+
+  database:
+    container_name: $DATABASE_TYPE
+    image: $DATABASE_TYPE:5.7 # postgres or mongo or mysql
+    ports:
+      - '$DATABASE_PORT:$DATABASE_PORT'
+    environment:
+      # POSTGRES_DB: $DATABASE_NAME
+      # POSTGRES_USER: $DATABASE_USERNAME
+      # POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      # PGDATA: /data/$DATABASE_TYPE
+      MYSQL_DATABASE: $DATABASE_NAME
+      MYSQL_USER: $DATABASE_USERNAME
+      MYSQL_PASSWORD: $DATABASE_PASSWORD
+      MYSQL_ROOT_PASSWORD: $DATABASE_PASSWORD
+    expose:
+      - '3306'
+    volumes:
+      - db-volume:/var/lib/mysql
+
+volumes: 
+ db-volume:

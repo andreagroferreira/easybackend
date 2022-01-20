@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  main-api:
+    build: .
+    ports:
+      - 80
+  
